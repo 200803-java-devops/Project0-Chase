@@ -1,4 +1,4 @@
-#Journal Application
+# Journal Application
 A command-line interface journal application using Java 11
 
 ## Features
