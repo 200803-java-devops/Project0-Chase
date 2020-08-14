@@ -8,41 +8,7 @@ import java.sql.SQLException;
 public class TryConnect {
     public Connection connection = null;
 
-    void createTable(String sql, String tableName) {
-        ConnectDB db = new ConnectDB();
-        connection = db.getConnection();
-
-        runSQL(sql, tableName);
-
-        db.close();
-    }
-
-    void delete(String date) {
-        ConnectDB db = new ConnectDB();
-        connection = db.getConnection();
-
-        String sql = "DELETE FROM JOURNALLOG WHERE dateAndTime='" + date + "';";
-
-        runSQL(sql, "JOURNALLOG");
-
-        db.close();
-    }
-
-    // eventually change to date, time, entryText
-    void insert(String date, String entryText) {
-        ConnectDB db = new ConnectDB();
-        connection = db.getConnection();
-
-        //String sql = "INSERT INTO JOURNALLOG VALUES (" + date + "," + entryText + ");";
-        //String sql = "INSERT INTO JOURNALLOG VALUES ('08-14-2020', 'hard code test');";
-        String sql = "INSERT INTO JOURNALLOG VALUES ('" + date + "','" + entryText + "');"; 
-
-        runSQL(sql, "JOURNALLOG");
-
-        db.close();
-    }
-
-    void runSQL(String sql, String tableName) {
+    public void runSQL(String sql) {
         PreparedStatement statement;
         try {
             statement = connection.prepareStatement(sql);
@@ -55,13 +21,42 @@ public class TryConnect {
         }
     }
 
-    void getTable() {
+    public void createTable(String sql) {
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();
 
-        String sql = "SELECT * FROM JOURNALLOG";
+        runSQL(sql);
 
-        System.out.println("Looking into database for table...");
+        db.close();
+    }
+
+    // eventually change to date, time, entryText
+    public void insert(String date, String entryText) {
+        ConnectDB db = new ConnectDB();
+        connection = db.getConnection();
+
+        String sql = "INSERT INTO JOURNALLOG VALUES ('" + date + "','" + entryText + "');";
+
+        runSQL(sql);
+
+        db.close();
+    }
+
+    public void insert(String date, String time, String entry) {
+        ConnectDB db = new ConnectDB();
+        connection = db.getConnection();
+        String sql = "INSERT INTO JOURNAL_TABLE VALUES ('" + date + "','" + time + "','" + entry + "');";
+        runSQL(sql);
+        db.close();
+    }
+
+    public void getTable() {
+        ConnectDB db = new ConnectDB();
+        connection = db.getConnection();
+
+        String sql = "SELECT * FROM JOURNAL_TABLE";
+
+        System.out.println("Looking into database for JOURNAL_TABLE...");
 
         PreparedStatement statement;
 
@@ -70,9 +65,10 @@ public class TryConnect {
             ResultSet result = statement.executeQuery();
 
             int index = 1;
-            while(result.next()) {
-                System.out.print("row " + index + ": " + result.getString("dateAndTime") + "\t");
-                System.out.println(result.getString("entryText"));
+            while (result.next()) {
+                System.out.print(
+                        "row " + index + ": " + result.getString("date") + "\t" + result.getString("time") + "\t");
+                System.out.println(result.getString("entry"));
                 index++;
             }
             result.close();
@@ -81,5 +77,32 @@ public class TryConnect {
             System.err.println("failed to look into table" + e);
         }
         db.close();
+    }
+
+    public void delete(String date) {
+        ConnectDB db = new ConnectDB();
+        connection = db.getConnection();
+
+        String sql = "DELETE FROM JOURNALLOG WHERE dateAndTime='" + date + "';";
+
+        runSQL(sql);
+
+        db.close();
+    }
+
+    // checks the existance of the SQL table. Returns true if it exists.
+    public boolean checkTable() {
+        ConnectDB db = new ConnectDB();
+        connection = db.getConnection();
+        PreparedStatement statement;
+        try {
+            statement = connection.prepareStatement("CREATE TABLE JOURNAL_TABLE (date text, time text, entry text);");
+            statement.executeQuery();
+        } catch (SQLException e) {
+            db.close();
+            return true;
+        }
+        db.close();
+        return false;
     }
 }
