@@ -19,7 +19,7 @@ public class WriteToFile {
     public void Write() {
         try {
             FileWriter myWriter = new FileWriter("journal-log.txt", true);
-            myWriter.write("\n\n" + date + "\n" + entry);
+            myWriter.write("ENTRY ON " + "[" + date + "]:\n" + entry + "\n\n\n");   //ENTRY ON will be removed
             myWriter.close();
             System.out.println("Successfully wrote to journal-log.txt");
         } catch (IOException e) {
