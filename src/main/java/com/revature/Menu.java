@@ -30,6 +30,9 @@ public class Menu {
             if (userSelection.equals("search")) {
                 return searchWord;
             }
+            if (userSelection.equals("delete")) {
+                return 9;
+            }
         } catch (IOException e) {
             System.out.println("IOException in menu input.");
         }

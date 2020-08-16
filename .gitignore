@@ -1,0 +1,9 @@
+# Don't track the content of these folders
+.settings/
+.vscode/
+target/
+
+#Don't track these files
+.project
+.classpath
+journal-log.txt

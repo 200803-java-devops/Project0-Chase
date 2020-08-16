@@ -14,9 +14,9 @@ public class LookUp {
     private Map<String, String> map;
     private Scanner reader;
 
-    public LookUp(String date) {
-        beginDate = date;
-        cutoffDate = date;
+    public LookUp(String d) {
+        beginDate = d;
+        cutoffDate = d;
         map = new HashMap<String, String>();
     }
 
@@ -57,5 +57,10 @@ public class LookUp {
         }
         reader.close();
         return map;
+    }
+
+    public void lookInTable() {
+        SqlOperation queryObj = new SqlOperation();
+        queryObj.getEntries(beginDate);
     }
 }

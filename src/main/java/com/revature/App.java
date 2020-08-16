@@ -5,7 +5,6 @@ public class App {
     {
         System.out.println( "JournalApp starting up..." );
         int userSelection = startMainMenu();
-        // TEMPORARY CHANGE TO TEST DB (BELOW):
         new ActivateSelection(userSelection).activate();
     }
 

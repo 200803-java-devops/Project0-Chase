@@ -18,16 +18,21 @@ public class ActivateSelection {
             entryObj.assembleEntry();
         }
         if (selection == 2) {
-            System.out.println("Please enter the date you would like to view entries from (MM-dd-yyyy): ");
+            System.out.println("Please enter the date you would like to view entries from (yyyy-MM-dd): ");
             try {
                 beginDate = new JournalInput().queryInput();
             } catch (IOException e) {
                 System.err.println("There was an IOException in Activate Selection (selection 2).");
             }
             LookUp searchObj = new LookUp(beginDate);
-            Map<String,String> resultMap = searchObj.find();
-            System.out.println("key: " + beginDate);
-            System.out.println("value: " + resultMap.get(beginDate));
+            // Map<String,String> resultMap = searchObj.find();
+            // System.out.println("key: " + beginDate);
+            // System.out.println("value: " + resultMap.get(beginDate));
+            searchObj.lookInTable();
+        }
+        if (selection == 9) {
+            SqlOperation queryObj = new SqlOperation();
+            queryObj.dropTable("\"journal_table\"");
         }
     }
 }
