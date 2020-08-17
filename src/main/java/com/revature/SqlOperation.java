@@ -49,8 +49,7 @@ public class SqlOperation {
 
             int index = 1;
             while (result.next()) {
-                System.out.print(
-                        "ENTRY " + index + ": " + result.getString("date_and_time") + "\t");
+                System.out.print("ENTRY " + index + ": " + result.getString("date_and_time") + "\t");
                 System.out.println(result.getString("entry"));
                 index++;
             }
@@ -68,7 +67,8 @@ public class SqlOperation {
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();
         String sql = "SELECT * FROM \"journal_table\" WHERE date_only BETWEEN '" + date1 + "' AND '" + date2 + "';";
-        System.out.println("Looking into database for \"journal_table\" for entries between " + date1 + " & " + date2 + "...");
+        System.out.println(
+                "Looking into database for \"journal_table\" for entries between " + date1 + " & " + date2 + "...");
         PreparedStatement statement;
 
         try {
@@ -89,16 +89,37 @@ public class SqlOperation {
         db.close();
     }
 
-    // public void delete(String date) {
-    //     ConnectDB db = new ConnectDB();
-    //     connection = db.getConnection();
-    //     String sql = "DELETE FROM \"journal_table\" WHERE date_and_time='" + date + "';";
-    //     runSQL(sql);
-    //     db.close();
-    // }
+    public void searchByKeyword(String phrase) {
+        ConnectDB db = new ConnectDB();
+        connection = db.getConnection();
+    
+        //String sql = "SELECT * FROM \"journal_table\" WHERE position(entry in '" + phrase + "')>0;";
+        String sql = "SELECT * FROM \"journal_table\" WHERE entry ILIKE '%" + phrase + "%'";
+        System.out.println("Looking into \"journal_table\" for keyword(s): " + phrase);
+        PreparedStatement statement;
 
-    // checks the existance of the SQL table. Returns true if it exists.
+        try {
+            statement = connection.prepareStatement(sql);
+            ResultSet result = statement.executeQuery();
+
+            int index = 1;
+            while (result.next()) {
+                System.out.print("ENTRY " + index + ": " + result.getString("date_and_time") + "\t");
+                System.out.println(result.getString("entry"));
+                index++;
+            }
+            if (index == 1) {
+                System.out.println("There were no entries in your journal that contained that phrase.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Failed to look into table when searching for keyword");
+            e.printStackTrace();
+        }
+        db.close();
+    }
+
     public boolean checkTable() {
+        // checks the existance of the SQL table. Returns true if it exists.
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();
         PreparedStatement statement;
@@ -129,4 +150,13 @@ public class SqlOperation {
         }
         db.close();
     }
+
+    // public void delete(String date) {
+    // ConnectDB db = new ConnectDB();
+    // connection = db.getConnection();
+    // String sql = "DELETE FROM \"journal_table\" WHERE date_and_time='" + date +
+    // "';";
+    // runSQL(sql);
+    // db.close();
+    // }
 }

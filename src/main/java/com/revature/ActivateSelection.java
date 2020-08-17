@@ -6,6 +6,7 @@ import java.util.Map;
 public class ActivateSelection {
     private int selection;
     private String dateInput;
+    private String keywordInput;
 
     public ActivateSelection(int s) {
         selection = s;
@@ -43,6 +44,17 @@ public class ActivateSelection {
             // System.out.println("key: " + dateInput);
             // System.out.println("value: " + resultMap.get(dateInput));
             
+        }
+        if (selection == 3) {
+            System.out.println("Please enter the keyword phrase you would like to search for:");
+            try {
+                keywordInput = new JournalInput().queryInput();
+                Keyword keywordObj = new Keyword(keywordInput);
+                keywordObj.search();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         if (selection == 9) {
             SqlOperation queryObj = new SqlOperation();
