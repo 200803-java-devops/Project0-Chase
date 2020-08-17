@@ -52,7 +52,7 @@ public class ActivateSelection {
                 Keyword keywordObj = new Keyword(keywordInput);
                 keywordObj.search();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
+                System.err.println("There was an IOException in Activate Selection (selection 3).");
                 e.printStackTrace();
             }
         }

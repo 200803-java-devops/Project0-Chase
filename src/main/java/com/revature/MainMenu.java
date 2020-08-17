@@ -2,7 +2,7 @@ package com.revature;
 
 import java.io.IOException;
 
-public class Menu {
+public class MainMenu {
     private int newEntry = 1;
     private int lookUp = 2;
     private int searchWord = 3;

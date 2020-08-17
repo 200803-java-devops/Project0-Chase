@@ -9,7 +9,7 @@ public class App {
     }
 
     private static int startMainMenu() {
-        Menu menu = new Menu();
+        MainMenu menu = new MainMenu();
         menu.openMainMenu();
         return menu.querySelection();
     }   
