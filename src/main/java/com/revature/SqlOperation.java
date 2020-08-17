@@ -78,6 +78,7 @@ public class SqlOperation {
             while (result.next()) {
                 System.out.print("ENTRY " + index + ": " + result.getString("date_and_time") + "\t");
                 System.out.println(result.getString("entry"));
+                index++;
             }
         } catch (SQLException e) {
             System.err.println("failed to look into table" + e);
