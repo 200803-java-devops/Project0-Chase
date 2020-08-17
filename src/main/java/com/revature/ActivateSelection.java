@@ -22,18 +22,20 @@ public class ActivateSelection {
             System.out.println("Or, to view all entries in a time window, enter two dates in this format (without parentheses): (yyyy-MM-dd,yyyy-MM-dd).");
             try {
                 dateInput = new JournalInput().queryInput();
-                DateChecker checker = new DateChecker(dateInput);
-                if (checker.runAll()) {
+                DateChecker checkerObj = new DateChecker(dateInput);
+                if (checkerObj.runAll()) {
                     System.out.println("The date(s) was/were valid.");
                 }
             } catch (IOException e) {
                 System.err.println("There was an IOException in Activate Selection (selection 2).");
             }
+            DateChecker checkerObj = new DateChecker(dateInput);
+            checkerObj.runAll();
             if (dateInput.length() == 10) {
-                LookUp searchObj = new LookUp(dateInput);
+                LookUp searchObj = new LookUp(checkerObj.getDate1());
                 searchObj.lookInTable();
             } else if (dateInput.length() == 21) {
-                LookUp searchObj = new LookUp(dateInput);
+                LookUp searchObj = new LookUp(checkerObj.getDate1(), checkerObj.getDate2());
                 searchObj.lookInTable();
             }
             

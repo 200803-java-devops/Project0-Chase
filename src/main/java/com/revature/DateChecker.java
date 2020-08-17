@@ -23,12 +23,12 @@ public class DateChecker {
     public boolean isAfter() {
         //returns true if date2 is after date1
         try {
-            int month1 = Integer.parseInt(date1.substring(0,2));
-            int day1 = Integer.parseInt(date1.substring(3,5));
-            int year1 = Integer.parseInt(date1.substring(6,10));
-            int month2 = Integer.parseInt(date2.substring(0,2));
-            int day2 = Integer.parseInt(date2.substring(3,5));
-            int year2 = Integer.parseInt(date2.substring(6,10));
+            int year1 = Integer.parseInt(date1.substring(0,4));
+            int month1 = Integer.parseInt(date1.substring(5,7));
+            int day1 = Integer.parseInt(date1.substring(8,10));
+            int year2 = Integer.parseInt(date2.substring(0,4));
+            int month2 = Integer.parseInt(date2.substring(5,7));
+            int day2 = Integer.parseInt(date2.substring(8,10));
             if ((month1 > month2) || (day1 > day2) || (year1 > year2)) {
                 return false;
             }
@@ -89,5 +89,13 @@ public class DateChecker {
             return false;
         }
         return true;
+    }
+
+    public String getDate1() {
+        return date1;
+    }
+
+    public String getDate2() {
+        return date2;
     }
 }

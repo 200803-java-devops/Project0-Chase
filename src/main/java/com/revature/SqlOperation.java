@@ -58,16 +58,17 @@ public class SqlOperation {
             statement.close();
         } catch (SQLException e) {
             System.err.println("failed to look into table");
+            System.err.println();
             e.printStackTrace();
         }
         db.close();
     }
 
-    public void getEntries(String date) {
+    public void getEntries(String date1, String date2) {
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();
-        String sql = "SELECT * FROM \"journal_table\" WHERE date_only='" + date + "';";
-        System.out.println("Looking into database for \"journal_table\"...");
+        String sql = "SELECT * FROM \"journal_table\" WHERE date_only BETWEEN '" + date1 + "' AND '" + date2 + "';";
+        System.out.println("Looking into database for \"journal_table\" for entries between " + date1 + " & " + date2 + "...");
         PreparedStatement statement;
 
         try {
@@ -81,7 +82,8 @@ public class SqlOperation {
                 index++;
             }
         } catch (SQLException e) {
-            System.err.println("failed to look into table" + e);
+            System.err.println("failed to look into table");
+            System.err.println();
             e.printStackTrace();
         }
         db.close();

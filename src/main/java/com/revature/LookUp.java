@@ -61,6 +61,6 @@ public class LookUp {
 
     public void lookInTable() {
         SqlOperation queryObj = new SqlOperation();
-        queryObj.getEntries(beginDate);
+        queryObj.getEntries(beginDate, cutoffDate);
     }
 }
