@@ -128,12 +128,12 @@ public class SqlOperation {
             statement.executeQuery();
         } catch (SQLException e) {
             db.close();
-            System.out.println("The table \"journal_table\" does indeed exist");
+            System.out.println("The table \"journal_table\" does NOT exist");
             e.printStackTrace();
-            return true;
+            return false;
         }
         db.close();
-        return false;
+        return true;
     }
 
     public void dropTable(String tableName) {
