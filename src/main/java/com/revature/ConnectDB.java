@@ -3,7 +3,9 @@ package com.revature;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
+/**
+ * ConnectDB will connect the java program to the postgreSQL database, which is ran through a docker container.
+ */
 public class ConnectDB {
     // completely unsure about this url
     private final String url = "jdbc:postgresql://localhost:5432/journaldb";

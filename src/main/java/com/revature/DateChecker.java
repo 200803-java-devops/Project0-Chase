@@ -1,5 +1,7 @@
 package com.revature;
-
+/**
+ * DateChecker will check if the user input dates in the correct format
+ */
 public class DateChecker {
     private String date1; // cutoff date
     private String date2; // date to compare to date1
@@ -9,8 +11,11 @@ public class DateChecker {
         dateInput = input;
     }
 
+    /**
+     * checkLength is for measuring the input
+     * @return integer corresponding to the number of correct dates entered by the user
+     */
     public int checkLength() {
-        // returns 1 if the length of dateInput is 10, returns 2 if the length is 21, returns 0 otherwise
         if (dateInput.length() == 10) {
             return 1;
         }
@@ -20,8 +25,11 @@ public class DateChecker {
         return 0;
     }
 
+    /**
+     * isAfter checks to see the order of two dates
+     * @return true if the first date is is chronologically before the second
+     */
     public boolean isAfter() {
-        //returns true if date2 is after date1
         try {
             int year1 = Integer.parseInt(date1.substring(0,4));
             int month1 = Integer.parseInt(date1.substring(5,7));
@@ -38,13 +46,13 @@ public class DateChecker {
         return true;
     }
 
+    /**
+     * singleFormat checks the format of a date from the user input
+     * @param d the date acquired from user input
+     * @return true if the date is in the correct format
+     */
     public boolean singleFormat(String d) {
-        //returns true if a single date was entered in the correct format
         if (!(d.substring(4,5).equals("-")) || !(d.substring(7,8).equals("-")) || !(d.length() == 10)) {
-            //System.out.println("An invalid date format was detected. Closing application...");
-            //System.out.println("d.substring(4,5) = " + d.substring(4,5));
-            //System.out.println("d.substring(7,8) = " + d.substring(7,8));
-            //System.out.println("d.length() = " + d.length());
             return false;
         }
         try {
@@ -59,8 +67,11 @@ public class DateChecker {
         return true;
     }
 
-    public boolean seperate() {
-        //returns true if the user's date was able to be seperated
+    /**
+     * separate sets the class fields date1 and date2 based on the result of checkLength
+     * @return true if the dates were in valid format
+     */
+    public boolean separate() {
         int amount = checkLength();
         if (amount == 1) {
             date1 = dateInput;
@@ -77,9 +88,13 @@ public class DateChecker {
         }
     }
 
+    /**
+     * runs the individual checks on the date
+     * @return true if one or two dates were entered in a valid format with the second date not occurring before the first
+     */
     public boolean runAll() {
-        // returns true if one or two dates were entered in a valid format with the second date not occurring before the first
-        if (seperate() == false) {
+
+        if (separate() == false) {
             return false;
         }
         if ((singleFormat(date1) == false) || (singleFormat(date2) == false )) {

@@ -1,7 +1,10 @@
 package com.revature;
 
 import java.io.IOException;
-
+/**
+ * MainMenu is the class which displays the menu options and sends the user's choice out to ActivateSelection
+ * @return  the user's menu input choice is returned as an integer by querySelection
+ */
 public class MainMenu {
     private int newEntry = 1;
     private int lookUp = 2;
@@ -21,14 +24,18 @@ public class MainMenu {
             if (userSelection.equals("new")) {
                 return newEntry;
             }
-            if (userSelection.equals("look up")) {
+            else if (userSelection.equals("look up")) {
                 return lookUp;
             }
-            if (userSelection.equals("search")) {
+            else if (userSelection.equals("search")) {
                 return searchWord;
             }
-            if (userSelection.equals("delete")) {
+            else if (userSelection.equals("delete")) {
                 return 9;
+            }
+            else {
+                System.out.println("That was not a valid menu choice. The app is closing.");
+                return -1;
             }
         } catch (IOException e) {
             System.err.println("IOException in menu input.");

@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/**
+ * SqlOperation is responsible for any interaction to the postgreSQL database.
+ */
 public class SqlOperation {
     public Connection connection = null;
 

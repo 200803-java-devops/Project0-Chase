@@ -3,27 +3,20 @@ package com.revature;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-
+/**
+ * The JournalEntry class is responsible for asking the user for a new entry as input.
+ * Once the input is acquired, it is sent to the "journal_table" in the SQL and backed up in a txt file.
+ */
 public class JournalEntry {
     public String stdFormattedDate;
     public String sqlFormattedDate;
     public String dateOnly;
-    // public int month;
-    // public int day;
-    // public int year;
     public String time;
-    // public int hour;
-    // public int minute;
     public String entry;
-    public ArrayList<String> entryArray = new ArrayList<String>();
-    // boolean important;
-    // int totalEntries;
-    // add list format
 
-    public JournalEntry() {
-    }
-
+    /**
+     * queryEntry calls JournalInput for a new journal entry while getting the current timestamp
+     */
     private void queryEntry() {
         LocalDateTime dateTime = LocalDateTime.now();
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
@@ -39,12 +32,9 @@ public class JournalEntry {
         }
     }
 
-    public void parseEntry() {
-        ParseMessage p = new ParseMessage(entry);
-        entryArray = p.seperateSentences();
-        System.out.println(entryArray);
-    }
-
+    /**
+     * assemblEntry calls the other class methods while also writing to a backup file
+     */
     public void assembleEntry() {
         this.queryEntry();
         System.out.println("Your entry was entered succesfully at " + stdFormattedDate + ".");
@@ -54,6 +44,9 @@ public class JournalEntry {
         queryDB();
     }
 
+    /**
+     * queryDB calls the SqlOperation class to insert a new entry into "journal_table"
+     */
     public void queryDB() {
         SqlOperation queryObj = new SqlOperation();
         SeparateDateTime s = new SeparateDateTime(sqlFormattedDate);
@@ -65,6 +58,10 @@ public class JournalEntry {
         //queryObj.getTable();
     }
 
+    /**
+     * deletTable is not actually used in the application, but is ready to be used for table deletion in SQL database
+     * @param table name of the sql table
+     */
     public void deleteTable(String table) {
         SqlOperation queryObj = new SqlOperation();
         queryObj.dropTable(table);

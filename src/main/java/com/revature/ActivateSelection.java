@@ -1,7 +1,10 @@
 package com.revature;
 
 import java.io.IOException;
-
+/**
+ * ActivateSelection takes the user's choice of menu input and activates the corresponding classes.
+ * @param s is their selection which corresponds to the integer output from MainMenu class
+ */
 public class ActivateSelection {
     private int selection;
     private String dateInput;
@@ -11,6 +14,9 @@ public class ActivateSelection {
         selection = s;
     }
 
+    /**
+     * activates the selection from the menu and will run the menu again if the input was invalid
+     */
     public void activate() {
         if (selection == 1) {
             // TEMPORARY SWITCH to JournalEntryCopy from JournalEntry
@@ -53,6 +59,12 @@ public class ActivateSelection {
         if (selection == 9) {
             SqlOperation queryObj = new SqlOperation();
             queryObj.dropTable("\"journal_table\"");
+        }
+        if (selection == -1) {
+            System.out.println("Please try again.");
+            MainMenu anotherMenu = new MainMenu();
+            int anotherSelection = anotherMenu.querySelection();
+            new ActivateSelection(anotherSelection).activate();
         }
     }
 }
