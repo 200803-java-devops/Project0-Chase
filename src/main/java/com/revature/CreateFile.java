@@ -10,7 +10,7 @@ public class CreateFile {
             if (log.createNewFile()) {
                 System.out.println("File created: " + log.getName());
             } else {
-                System.out.println(log.getName() + " already exists. Writing to file for backup");
+                //System.out.println(log.getName() + " already exists. Writing to file for backup");
             }
         } catch (IOException e) {
             System.err.println("An error occured in CreateFile");

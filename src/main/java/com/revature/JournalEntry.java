@@ -62,7 +62,7 @@ public class JournalEntry {
         String createT = "CREATE TABLE IF NOT EXISTS \"journal_table\" (date_and_time TIMESTAMP, date_only DATE, time_only TIME, entry TEXT);";
         queryObj.createTable(createT);
         queryObj.insert(sqlFormattedDate, dateOnly, time, entry);
-        queryObj.getTable();
+        //queryObj.getTable();
     }
 
     public void deleteTable(String table) {

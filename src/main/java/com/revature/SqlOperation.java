@@ -67,8 +67,7 @@ public class SqlOperation {
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();
         String sql = "SELECT * FROM \"journal_table\" WHERE date_only BETWEEN '" + date1 + "' AND '" + date2 + "';";
-        System.out.println(
-                "Looking into database for \"journal_table\" for entries between " + date1 + " & " + date2 + "...");
+        //System.out.println("Looking into database for \"journal_table\" for entries between " + date1 + " & " + date2 + "...");
         PreparedStatement statement;
 
         try {
