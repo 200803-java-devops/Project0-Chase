@@ -10,6 +10,10 @@ import java.sql.SQLException;
 public class SqlOperation {
     public Connection connection = null;
 
+    /**
+     * runSQL runs a sql query
+     * @param sql string of the query
+     */
     public void runSQL(String sql) {
         PreparedStatement statement;
         try {
@@ -23,6 +27,10 @@ public class SqlOperation {
         }
     }
 
+    /**
+     * createTable creates a new table in the database
+     * @param sql string of the query
+     */
     public void createTable(String sql) {
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();
@@ -30,6 +38,13 @@ public class SqlOperation {
         db.close();
     }
 
+    /**
+     * insert will insert a new journal entry
+     * @param dateTime date and time in TIMESTAMP format
+     * @param date only the date
+     * @param time only the time
+     * @param entry text for the journal entry
+     */
     public void insert(String dateTime, String date, String time, String entry) {
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();
@@ -38,6 +53,9 @@ public class SqlOperation {
         db.close();
     }
 
+    /**
+     * getTable() prints all of the entries in the table
+     */
     public void getTable() {
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();
