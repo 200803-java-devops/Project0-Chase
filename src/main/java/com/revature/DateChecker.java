@@ -41,10 +41,10 @@ public class DateChecker {
     public boolean singleFormat(String d) {
         //returns true if a single date was entered in the correct format
         if (!(d.substring(4,5).equals("-")) || !(d.substring(7,8).equals("-")) || !(d.length() == 10)) {
-            System.out.println("An invalid date format was detected. Closing application...");
-            System.out.println("d.substring(4,5) = " + d.substring(4,5));
-            System.out.println("d.substring(7,8) = " + d.substring(7,8));
-            System.out.println("d.length() = " + d.length());
+            //System.out.println("An invalid date format was detected. Closing application...");
+            //System.out.println("d.substring(4,5) = " + d.substring(4,5));
+            //System.out.println("d.substring(7,8) = " + d.substring(7,8));
+            //System.out.println("d.length() = " + d.length());
             return false;
         }
         try {

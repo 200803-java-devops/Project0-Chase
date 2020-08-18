@@ -92,8 +92,6 @@ public class SqlOperation {
     public void searchByKeyword(String phrase) {
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();
-    
-        //String sql = "SELECT * FROM \"journal_table\" WHERE position(entry in '" + phrase + "')>0;";
         String sql = "SELECT * FROM \"journal_table\" WHERE entry ILIKE '%" + phrase + "%'";
         System.out.println("Looking into \"journal_table\" for keyword(s): " + phrase);
         PreparedStatement statement;
@@ -150,13 +148,4 @@ public class SqlOperation {
         }
         db.close();
     }
-
-    // public void delete(String date) {
-    // ConnectDB db = new ConnectDB();
-    // connection = db.getConnection();
-    // String sql = "DELETE FROM \"journal_table\" WHERE date_and_time='" + date +
-    // "';";
-    // runSQL(sql);
-    // db.close();
-    // }
 }

@@ -1,7 +1,6 @@
 package com.revature;
 
 import java.io.IOException;
-import java.util.Map;
 
 public class ActivateSelection {
     private int selection;
@@ -38,12 +37,7 @@ public class ActivateSelection {
             } else if (dateInput.length() == 21) {
                 LookUp searchObj = new LookUp(checkerObj.getDate1(), checkerObj.getDate2());
                 searchObj.lookInTable();
-            }
-            
-            // Map<String,String> resultMap = searchObj.find();
-            // System.out.println("key: " + dateInput);
-            // System.out.println("value: " + resultMap.get(dateInput));
-            
+            }            
         }
         if (selection == 3) {
             System.out.println("Please enter the keyword phrase you would like to search for:");

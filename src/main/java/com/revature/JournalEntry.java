@@ -40,14 +40,6 @@ public class JournalEntry {
     }
 
     public void parseEntry() {
-        // Scanner scanner = new Scanner(entry);
-        // scanner.useDelimiter(".\\s|\\?\\s|!\\s");
-        // scanner.useDelimiter(".\\s");
-        // while (scanner.hasNext()) {
-        // entryArray.add(scanner.next());
-        // System.out.println(scanner.next());
-        // }
-        // scanner.close();
         ParseMessage p = new ParseMessage(entry);
         entryArray = p.seperateSentences();
         System.out.println(entryArray);

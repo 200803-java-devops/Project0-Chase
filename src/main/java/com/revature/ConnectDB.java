@@ -18,7 +18,7 @@ public class ConnectDB {
         try {
             Class.forName("org.postgresql.Driver");
             this.connection = DriverManager.getConnection(url, user, password);
-            System.out.println("CONNECTED TO DATABASE SUCCESSFULLY!");
+            //System.out.println("CONNECTED TO DATABASE SUCCESSFULLY!");
         } catch (SQLException sqlE) {
             System.err.println("Could NOT connect to database due to SQLException...");
             sqlE.printStackTrace();    
@@ -36,7 +36,7 @@ public class ConnectDB {
         try {
             if (this.connection != null) {
                 this.connection.close();
-                System.out.println("Database connection is closed.");
+                //System.out.println("Database connection is closed.");
             }
         } catch(SQLException sqlE) {
             System.err.println("SQLException trying to close the connection...");
