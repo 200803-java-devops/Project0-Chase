@@ -7,3 +7,4 @@ target/
 .project
 .classpath
 journal-log.txt
+status.log
