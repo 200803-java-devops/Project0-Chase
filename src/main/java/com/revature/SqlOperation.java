@@ -83,6 +83,11 @@ public class SqlOperation {
         db.close();
     }
 
+    /**
+     * getEntries prints the entries in the window of date1 to date2 inclusively
+     * @param date1 first chronological date
+     * @param date2 second chronological date
+     */
     public void getEntries(String date1, String date2) {
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();
@@ -108,6 +113,10 @@ public class SqlOperation {
         db.close();
     }
 
+    /**
+     * searchByKeyword prints all the entries containing the given keyword phrase
+     * @param phrase keyword phrase to search table for
+     */
     public void searchByKeyword(String phrase) {
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();
@@ -135,8 +144,11 @@ public class SqlOperation {
         db.close();
     }
 
+    /**
+     * checks the existance of the SQL table
+     * @return true if it exists.
+     */
     public boolean checkTable() {
-        // checks the existance of the SQL table. Returns true if it exists.
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();
         PreparedStatement statement;
@@ -153,6 +165,9 @@ public class SqlOperation {
         return true;
     }
 
+    /**
+     * dropTable is never called in the app, but ready to use if called to reset the table
+     */
     public void dropTable(String tableName) {
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();

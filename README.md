@@ -9,3 +9,14 @@ A command-line interface journal application using Java 11
 - [x] Can search for existing entries
     - [x] Return entries from a given time window
     - [x] Return entries containing a key word
+- [x] Documentation
+- [x] Unit tests
+- [x] Logging
+
+## Tech Stack
+- Java 11:
+    - File I/O
+- Maven 3
+- JUnit 4.11
+- Git
+- PostgresSql 12

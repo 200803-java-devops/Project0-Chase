@@ -80,7 +80,7 @@ public class ActivateSelection {
         try {
             FileHandler fileHandler = new FileHandler("status.log");
             logger.addHandler(fileHandler);
-            logger.info(java.time.LocalTime.now() + " App running");
+            logger.info(java.time.LocalTime.now() + " App Running");
         } catch (SecurityException e) {
             e.printStackTrace();
         } catch (IOException e) {
