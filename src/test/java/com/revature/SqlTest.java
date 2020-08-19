@@ -42,11 +42,12 @@ public class SqlTest {
             e1.printStackTrace();
         }
 
-        String sql2 = "SELECT * FROM \"journal_table\" WHERE dateTime= '" + sqlFormattedDateTime + "';";
+        String sql2 = "SELECT * FROM \"journal_table\" WHERE date_and_time= '" + sqlFormattedDateTime + "';";
 
         try {
             statement = connection.prepareStatement(sql2);
             ResultSet result = statement.executeQuery();
+            result.next();
             assertTrue(result.getString("date_and_time").equals(sqlFormattedDateTime));
             assertTrue(result.getString("date_only").equals(date));
             assertTrue(result.getString("time_only").equals(time));

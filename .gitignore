@@ -8,3 +8,4 @@ target/
 .classpath
 journal-log.txt
 status.log
+PeriodicLog.java

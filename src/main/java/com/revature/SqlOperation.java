@@ -60,7 +60,9 @@ public class SqlOperation {
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();
         String sql = "SELECT * FROM \"journal_table\";";
+        System.out.println();
         System.out.println("Looking into database for \"journal_table\"...");
+        System.out.println();
         PreparedStatement statement;
 
         try {
@@ -105,6 +107,7 @@ public class SqlOperation {
                 System.out.println(result.getString("entry"));
                 index++;
             }
+            System.out.println();
         } catch (SQLException e) {
             System.err.println("failed to look into table");
             System.err.println();
@@ -121,7 +124,9 @@ public class SqlOperation {
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();
         String sql = "SELECT * FROM \"journal_table\" WHERE entry ILIKE '%" + phrase + "%'";
+        System.out.println();
         System.out.println("Looking into \"journal_table\" for keyword(s): " + phrase);
+        System.out.println();
         PreparedStatement statement;
 
         try {
@@ -134,8 +139,10 @@ public class SqlOperation {
                 System.out.println(result.getString("entry"));
                 index++;
             }
+            System.out.println();
             if (index == 1) {
                 System.out.println("There were no entries in your journal that contained that phrase.");
+                System.out.println();
             }
         } catch (SQLException e) {
             System.err.println("Failed to look into table when searching for keyword");

@@ -31,15 +31,17 @@ public class ActivateSelection {
             entryObj.assembleEntry();
         }
         if (selection == 2) {
+            System.out.println();
             System.out.println(
                     "Please enter the date you would like to view entries from in this format (without parentheses): (yyyy-MM-dd). ");
             System.out.println(
                     "Or, to view all entries in a time window, enter two dates in this format (without parentheses): (yyyy-MM-dd,yyyy-MM-dd).");
+            System.out.println();
             try {
                 dateInput = new JournalInput().queryInput();
                 DateChecker checkerObj = new DateChecker(dateInput);
                 if (checkerObj.runAll()) {
-                    System.out.println("The date(s) was/were valid.");
+                    System.out.println();
                 }
             } catch (IOException e) {
                 System.err.println("There was an IOException in Activate Selection (selection 2).");
@@ -55,7 +57,9 @@ public class ActivateSelection {
             }
         }
         if (selection == 3) {
+            System.out.println();
             System.out.println("Please enter the keyword phrase you would like to search for:");
+            System.out.println();
             try {
                 keywordInput = new JournalInput().queryInput();
                 Keyword keywordObj = new Keyword(keywordInput);
@@ -70,7 +74,9 @@ public class ActivateSelection {
             queryObj.dropTable("\"journal_table\"");
         }
         if (selection == -1) {
+            System.out.println();
             System.out.println("Please try again.");
+            System.out.println();
             MainMenu anotherMenu = new MainMenu();
             int anotherSelection = anotherMenu.querySelection();
             new ActivateSelection(anotherSelection).activate();

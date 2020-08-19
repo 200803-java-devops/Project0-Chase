@@ -24,7 +24,9 @@ public class JournalEntry {
         stdFormattedDate = dateTime.format(dateFormat);
         sqlFormattedDate = dateTime.format(sqlDateFormat);
         JournalInput message = new JournalInput();
+        System.out.println();
         System.out.println("Please enter your current journal entry: ");
+        System.out.println();
         try {
             entry = message.queryInput();
         } catch (IOException e) {
@@ -37,8 +39,9 @@ public class JournalEntry {
      */
     public void assembleEntry() {
         this.queryEntry();
-        System.out.println("Your entry was entered succesfully at " + stdFormattedDate + ".");
-        // this.parseEntry();
+        System.out.println();
+        System.out.println("Your entry at "  + stdFormattedDate + " was entered succesfully.");
+        System.out.println();
         new CreateFile();
         new WriteToFile(entry, stdFormattedDate).Write();
         queryDB();

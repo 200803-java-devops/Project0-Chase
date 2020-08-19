@@ -8,7 +8,7 @@ A command-line interface journal application using Java 11
     - [x] Store entries in a postgresSQL database
 - [x] Can search for existing entries
     - [x] Return entries from a given time window
-    - [x] Return entries containing a key word
+    - [x] Return entries containing a keyword
 - [x] Documentation
 - [x] Unit tests
 - [x] Logging
