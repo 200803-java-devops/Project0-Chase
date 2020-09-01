@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 /**
  * SqlOperation is responsible for any interaction to the postgreSQL database.
  */
@@ -90,12 +91,18 @@ public class SqlOperation {
      * @param date1 first chronological date
      * @param date2 second chronological date
      */
-    public void getEntries(String date1, String date2) {
+    public ArrayList<String> getEntries(String date1, String date2) {
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();
         String sql = "SELECT * FROM \"journal_table\" WHERE date_only BETWEEN '" + date1 + "' AND '" + date2 + "';";
         //System.out.println("Looking into database for \"journal_table\" for entries between " + date1 + " & " + date2 + "...");
         PreparedStatement statement;
+
+        ArrayList<String> rows = new ArrayList<String>();
+        //This 'Buffer Space' aligns the index of the 'rows' list with the index of the printed entries below
+        rows.add("Buffer Space");   
+        
+        //ArrayList<ArrayList<String>> twoDList = new ArrayList<ArrayList<String>>();
 
         try {
             statement = connection.prepareStatement(sql);
@@ -104,6 +111,7 @@ public class SqlOperation {
             int index = 1;
             while (result.next()) {
                 System.out.print("ENTRY " + index + ": " + result.getString("date_and_time") + "\t");
+                rows.add(result.getString("date_and_time"));
                 System.out.println(result.getString("entry"));
                 index++;
             }
@@ -114,6 +122,26 @@ public class SqlOperation {
             e.printStackTrace();
         }
         db.close();
+        return rows;
+    }
+
+    public String getEntry(String dateAndTime) {
+        ConnectDB db = new ConnectDB();
+        connection = db.getConnection();
+        PreparedStatement statement;
+        String entry = new String();
+        String sql = "SELECT * FROM \"journal_table\" WHERE date_and_time='" + dateAndTime + "';";
+        try {
+            statement = connection.prepareStatement(sql);
+            ResultSet result = statement.executeQuery();
+            entry = result.getString("entry");
+        } catch (SQLException e) {
+            System.err.println("failed to look into table in SqlOperation.getEntry");
+            System.err.println();
+            e.printStackTrace();
+        }
+        db.close();
+        return entry;
     }
 
     /**

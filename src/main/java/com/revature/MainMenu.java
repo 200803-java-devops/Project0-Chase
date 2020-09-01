@@ -9,6 +9,7 @@ public class MainMenu {
     private int newEntry = 1;
     private int lookUp = 2;
     private int searchWord = 3;
+    private int edit = 4;
 
     public void openMainMenu() {
         System.out.println("Welcome to your journal main menu! Enter one of the following keywords to begin (without quotes). ");
@@ -30,11 +31,14 @@ public class MainMenu {
             else if (userSelection.equals("search")) {
                 return searchWord;
             }
+            else if (userSelection.equals("edit")) {
+                return edit;
+            }
             else if (userSelection.equals("delete")) {
                 return 9;
             }
             else {
-                System.out.println("That was not a valid menu choice. The app is closing.");
+                System.out.println("That was not a valid menu choice.");
                 return -1;
             }
         } catch (IOException e) {
