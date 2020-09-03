@@ -90,6 +90,7 @@ public class SqlOperation {
      * getEntries prints the entries in the window of date1 to date2 inclusively
      * @param date1 first chronological date
      * @param date2 second chronological date
+     * @return ArrayList of the timpestamps of the entries that were printed
      */
     public ArrayList<String> getEntries(String date1, String date2) {
         ConnectDB db = new ConnectDB();
@@ -101,8 +102,6 @@ public class SqlOperation {
         ArrayList<String> rows = new ArrayList<String>();
         //This 'Buffer Space' aligns the index of the 'rows' list with the index of the printed entries below
         rows.add("Buffer Space");   
-        
-        //ArrayList<ArrayList<String>> twoDList = new ArrayList<ArrayList<String>>();
 
         try {
             statement = connection.prepareStatement(sql);
@@ -111,10 +110,11 @@ public class SqlOperation {
             int index = 1;
             while (result.next()) {
                 System.out.print("ENTRY " + index + ": " + result.getString("date_and_time") + "\t");
-                rows.add(result.getString("date_and_time"));
                 System.out.println(result.getString("entry"));
+                rows.add(result.getString("date_and_time"));
                 index++;
             }
+            statement.close();
             System.out.println();
         } catch (SQLException e) {
             System.err.println("failed to look into table");
@@ -125,6 +125,11 @@ public class SqlOperation {
         return rows;
     }
 
+    /**
+     * getEntry returns the entry that matches the given timestamp dateAndTime
+     * @param dateAndTime timestamp of the entry to retrieve
+     * @return the entry as a String
+     */
     public String getEntry(String dateAndTime) {
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();
@@ -134,10 +139,11 @@ public class SqlOperation {
         try {
             statement = connection.prepareStatement(sql);
             ResultSet result = statement.executeQuery();
+            result.next();
             entry = result.getString("entry");
+            statement.close();
         } catch (SQLException e) {
             System.err.println("failed to look into table in SqlOperation.getEntry");
-            System.err.println();
             e.printStackTrace();
         }
         db.close();
@@ -145,10 +151,24 @@ public class SqlOperation {
     }
 
     /**
+     * updateEntry edits an existing entry without changing the date or time
+     * @param dateAndTime the primary key and timestamp of the entry to update
+     * @param entry the new entry text
+     */
+    public void updateEntry(String dateAndTime, String entry) {
+        ConnectDB db = new ConnectDB();
+        connection = db.getConnection();
+        String sql = "UPDATE \"journal_table\" SET entry='" + entry + "' WHERE date_and_time='" + dateAndTime + "';";
+        runSQL(sql);
+        db.close();
+    }
+
+    /**
      * searchByKeyword prints all the entries containing the given keyword phrase
      * @param phrase keyword phrase to search table for
+     * @return ArrayList of the timpestamps of the entries that were printed
      */
-    public void searchByKeyword(String phrase) {
+    public ArrayList<String> searchByKeyword(String phrase) {
         ConnectDB db = new ConnectDB();
         connection = db.getConnection();
         String sql = "SELECT * FROM \"journal_table\" WHERE entry ILIKE '%" + phrase + "%'";
@@ -156,6 +176,10 @@ public class SqlOperation {
         System.out.println("Looking into \"journal_table\" for keyword(s): " + phrase);
         System.out.println();
         PreparedStatement statement;
+
+        ArrayList<String> rows = new ArrayList<String>();
+        //This 'Buffer Space' aligns the index of the 'rows' list with the index of the printed entries below
+        rows.add("Buffer Space");   
 
         try {
             statement = connection.prepareStatement(sql);
@@ -165,6 +189,7 @@ public class SqlOperation {
             while (result.next()) {
                 System.out.print("ENTRY " + index + ": " + result.getString("date_and_time") + "\t");
                 System.out.println(result.getString("entry"));
+                rows.add(result.getString("date_and_time"));
                 index++;
             }
             System.out.println();
@@ -172,11 +197,13 @@ public class SqlOperation {
                 System.out.println("There were no entries in your journal that contained that phrase.");
                 System.out.println();
             }
+            statement.close();
         } catch (SQLException e) {
             System.err.println("Failed to look into table when searching for keyword");
             e.printStackTrace();
         }
         db.close();
+        return rows;
     }
 
     /**
@@ -190,8 +217,8 @@ public class SqlOperation {
         try {
             statement = connection.prepareStatement("SELECT * FROM \"journal_table\";");
             statement.executeQuery();
+            statement.close();
         } catch (SQLException e) {
-            db.close();
             System.out.println("The table \"journal_table\" does NOT exist");
             e.printStackTrace();
             return false;
@@ -210,6 +237,7 @@ public class SqlOperation {
         try {
             statement = connection.prepareStatement("DROP TABLE " + tableName + ";");
             statement.executeUpdate();
+            statement.close();
             System.out.println("Successfuly dropped table: " + tableName);
         } catch (SQLException e) {
             System.err.println("Problem dropping table: " + tableName);

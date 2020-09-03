@@ -9,3 +9,4 @@ target/
 journal-log.txt
 status.log
 PeriodicLog.java
+AwtControlDemo.java

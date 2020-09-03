@@ -66,7 +66,7 @@ public class ActivateSelection {
                 try {
                     keywordInput = new JournalInput().queryInput();
                     Keyword keywordObj = new Keyword(keywordInput);
-                    keywordObj.search();
+                    entryDatesForEdit = keywordObj.search();
                 } catch (IOException e) {
                     System.err.println("There was an IOException in Activate Selection (selection 3).");
                     e.printStackTrace();
@@ -82,33 +82,30 @@ public class ActivateSelection {
                 SearchMenu menu = new SearchMenu();
                 menu.openSearchMenu();
                 int userSelection = menu.querySelection();
-                //new ActivateSelection(userSelection).activate();
-                // I want to handle these two selections manually, instead of going through this class again
-                switch (userSelection) {
-                    case 2:
-                        ActivateSelection recursedSelection = new ActivateSelection(userSelection);
-                        recursedSelection.activate();
-                        // now we have the 'date_and_time' of the possible entries to edit in recursedSelection.entryDatesForEdit
-                        System.out.println("Please enter the number of the entry that you'd like to edit: ");
-                        JournalInput input = new JournalInput();
-                        String entryNumberString = new String();
-                        try {
-                            entryNumberString = input.queryInput();
-                            
-                        } catch (IOException e1) {
-                            System.err.println("That number choice was not valid.");
-                            e1.printStackTrace();
-                        }
-                        int entryNumber = Integer.parseInt(entryNumberString);
-                        EditEntry editObj = new EditEntry(recursedSelection.entryDatesForEdit.get(entryNumber));
-                        try {
-                            editObj.WriteTempFile();
-                        } catch (IOException e1) {
-                            System.err.println("Error caught in ActivateSelection.activate() case 4: " + e1.getMessage());
-                            e1.printStackTrace();
-                        }
-                        break;
+
+                ActivateSelection recursedSelection = new ActivateSelection(userSelection);
+                recursedSelection.activate();
+
+                // now we have the 'date_and_time' of the possible entries to edit in
+                System.out.println("Please enter the number of the entry that you'd like to edit: ");
+                JournalInput input = new JournalInput();
+                String entryNumberString = new String();
+                try {
+                    entryNumberString = input.queryInput();
+
+                } catch (IOException e1) {
+                    System.err.println("That number choice was not valid.");
+                    e1.printStackTrace();
                 }
+                int entryNumber = Integer.parseInt(entryNumberString);
+                EditEntry editObj = new EditEntry(recursedSelection.entryDatesForEdit.get(entryNumber));
+                editObj.retrieveEntry();
+                editObj.writeFileOut();
+                System.out.println("Save the file after making changes, "
+                        + "then close the text editor and press ENTER in the command line.");
+                editObj.openTextEditor();
+                editObj.waitForUser();
+                editObj.updateEntry();
                 break;
 
             case 9:
@@ -126,7 +123,7 @@ public class ActivateSelection {
 
         logger.setUseParentHandlers(false);
         try {
-            FileHandler fileHandler = new FileHandler("status.log");
+            FileHandler fileHandler = new FileHandler("./target/status.log");
             logger.addHandler(fileHandler);
             logger.info(java.time.LocalTime.now() + " App Running");
         } catch (SecurityException e) {

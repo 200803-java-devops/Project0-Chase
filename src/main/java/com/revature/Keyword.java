@@ -1,6 +1,10 @@
 package com.revature;
+
+import java.util.ArrayList;
+
 /**
- * Keyword's search method will call SqlOperation to retrieve and print any entries containing user's keyword phrase.
+ * Keyword's search method will call SqlOperation to retrieve and print any
+ * entries containing user's keyword phrase.
  */
 public class Keyword {
     private String matchPhrase;
@@ -9,8 +13,8 @@ public class Keyword {
         matchPhrase = p;
     }
 
-    public void search() {
+    public ArrayList<String> search() {
         SqlOperation queryObj = new SqlOperation();
-        queryObj.searchByKeyword(matchPhrase);
+        return queryObj.searchByKeyword(matchPhrase);
     }
 }

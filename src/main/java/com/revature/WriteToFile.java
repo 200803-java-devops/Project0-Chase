@@ -26,6 +26,7 @@ public class WriteToFile {
             //System.out.println("Successfully wrote to journal-log.txt for a backup log.");
         } catch (IOException e) {
             System.err.println("IOException with WriteToFile: FileWriter");
+            e.printStackTrace();
         }
     }
 }

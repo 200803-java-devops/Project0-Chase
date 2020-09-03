@@ -15,12 +15,6 @@ import org.junit.Test;
 public class SqlTest {
 
     @Test
-    public void checkTableExists() {
-        SqlOperation sqlObj = new SqlOperation();
-        assertTrue(sqlObj.checkTable());
-    }
-
-    @Test
     public void enterEntryTest() {
         ConnectDB db = new ConnectDB();
         Connection connection = db.getConnection();

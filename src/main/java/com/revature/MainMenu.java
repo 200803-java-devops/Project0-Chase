@@ -16,6 +16,7 @@ public class MainMenu {
         System.out.println("\"new\": to make a new journal entry");
         System.out.println("\"look up\": to look up an existing entry");
         System.out.println("\"search\": to search and return all entries that contain keywords");
+        System.out.println("\"edit\": to edit an existing entry");
     }
 
     public int querySelection() {

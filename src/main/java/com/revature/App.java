@@ -3,7 +3,7 @@ package com.revature;
 public class App {
     public static void main( String[] args )
     {
-        System.out.println( "JournalApp starting up..." );
+        System.out.println( "JournalApp starting up...\n" );
         int userSelection = startMainMenu();
         new ActivateSelection(userSelection).activate();
     }
@@ -15,5 +15,7 @@ public class App {
     }   
 }
 
-//function for retrieving entries within time range, 
-//entries that are important, entries are lists
+/*
+AwtControlDemo  awtControlDemo = new AwtControlDemo();
+awtControlDemo.showTextAreaDemo();
+*/
